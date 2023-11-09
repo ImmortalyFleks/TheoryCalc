@@ -75,41 +75,41 @@ button.addEventListener('click', function() {
     resultDiv.innerText = 'Результат: ' + x
 })
 
+
 function Calculate() {
     k = Number.parseFloat(chooseField.value)
     n = Number.parseFloat(totalField.value)
-    repeat = repeatField.value 
+    repeat = repeatField.value
     if (n % 1 !== 0 || n <= 0) return 'все числа должны быть целыми и больше нуля'
 
     switch (selectElement.value) {
         case 'Перестановки': {
+            if (repeat === 'Нет') return fact(n)
+
             let k1 = Number.parseFloat(groupField.value)
-            if (k1 > n) return 'k не может быть больше n'  
+            if (k1 > n) return 'k не может быть больше n'
             if (k1 % 1 !== 0 || k1 <= 0) return 'все числа должны быть целыми и больше нуля'
-            if (repeat === 'Нет') return fact(n - k)
-            else {
-                let valuesInputs = document.querySelectorAll('.permutation-field')
-                let sum = 0
-                let result = fact(n)
-                for (let i = 0; i < valuesInputs.length; i++) {
-                    let x = Number.parseFloat(valuesInputs[i].value)
-                    if (x % 1 !== 0 || x <= 0) return 'все числа должны быть целыми и больше нуля'
-                    sum += Number.parseInt(valuesInputs[i].value)
-                    result /= fact(Number.parseInt(valuesInputs[i].value))
-                }
-                if (sum !== n) return 'сумма элементов всех групп должна давать n'
-                return result
+            let valuesInputs = document.querySelectorAll('.permutation-field')
+            let sum = 0
+            let result = fact(n)
+            for (let i = 0; i < valuesInputs.length; i++) {
+                let x = Number.parseFloat(valuesInputs[i].value)
+                if (x % 1 !== 0 || x <= 0) return 'все числа должны быть целыми и больше нуля'
+                sum += Number.parseInt(valuesInputs[i].value)
+                result /= fact(Number.parseInt(valuesInputs[i].value))
             }
+            if (sum !== n) return 'сумма элементов всех групп должна давать n'
+            return result
         }
         case 'Размещения': {
             if (k % 1 !== 0 || k <= 0) return 'все числа должны быть целыми и больше нуля'
-            if (repeat === 'Нет') { 
+            if (repeat === 'Нет') {
                 if (k > n) return 'k не может быть больше n'
                 return fact(n) / fact(n - k)
             }
             else return Math.pow(n, k)
         }
-        
+
         case 'Сочетания': {
             if (k % 1 !== 0 || k <= 0) return 'все числа должны быть целыми и больше нуля'
             if (repeat === 'Нет') {
